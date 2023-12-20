@@ -4,14 +4,24 @@ import MainNav from '@/components/MainNav.vue';
 import { expect } from 'vitest';
 
 describe('MainNav', () => {
+  const renderMainNav = () => {
+    render(MainNav, {
+      global: {
+        stubs: {
+          FontAwesomeIcon: true
+        }
+      }
+    });
+  };
+
   it('displays company name', () => {
-    render(MainNav);
+    renderMainNav();
     const companyName = screen.getByText('Bobo Careers');
     expect(companyName).toBeInTheDocument();
   });
 
   it('displays menu item for navigation', () => {
-    render(MainNav);
+    renderMainNav();
     const navigationMenuItems = screen.getAllByRole('listitem');
     const navigationMenuTexts = navigationMenuItems.map((item) => {
       return item.textContent;
@@ -29,7 +39,7 @@ describe('MainNav', () => {
 
   describe('when user logs in', () => {
     it('displays user profile picture', async () => {
-      render(MainNav);
+      renderMainNav();
 
       let profileImage = screen.queryByRole('img', {
         //qua name si riferisce all attributo alt
