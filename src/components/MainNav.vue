@@ -1,5 +1,6 @@
 <template>
-  <header class="w-full text-sm">
+  <header :class="['w-full', 'text-sm', headerHeightClass]">
+    <!-- :class="headerHeightClass" class="w-full text-sm" SI PUò SCRIVERE ANCHE COSI (MATTIA)-->
     <div class="fixed top-0 left-0 w-full h-16 bg-white">
       <div class="flex flex-nowrap h-full border-b border-solid border-brand-gray-1 px-8 mx-auto">
         <a class="flex h-full items-center text-xl" :href="url">{{ company }}</a>
@@ -39,6 +40,12 @@ export default {
       menuItems: ['Teams', 'Locations', 'Life at Bobo Corp', 'How we hire', 'Students', 'Jobs'],
       isLoggedIn: false
     };
+  },
+  computed: {
+    headerHeightClass() {
+      return { 'h-16': !this.isLoggedIn, 'h-32': this.isLoggedIn };
+      // return this.isLoggedIn ? 'h-32' : 'h-16'; SI PUO SCRIVERE ANCHE COSI (MATTIA)
+    }
   },
   methods: {
     loginUser() {
