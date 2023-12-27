@@ -1,21 +1,15 @@
 <script>
 import MainNav from '@/components/Navigation/MainNav.vue';
-import TheHero from '@/components/JobSearch/TheHero.vue';
 
 export default {
   name: 'App',
   components: {
-    MainNav: MainNav,
-    TheHero
+    MainNav: MainNav
   }
 };
 </script>
 
 <template>
-  <header>
-    <div class="wrapper">
-      <MainNav />
-      <the-hero />
-    </div>
-  </header>
+  <MainNav />
+  <router-view />
 </template>
