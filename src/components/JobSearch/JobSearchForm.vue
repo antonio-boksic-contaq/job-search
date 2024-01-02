@@ -1,5 +1,8 @@
 <template>
-  <form class="flex h-12 w-full items-center rounded-3xl border border-solid border-brand-gray-3">
+  <form
+    class="flex h-12 w-full items-center rounded-3xl border border-solid border-brand-gray-3"
+    @submit.prevent="searchForJobs"
+  >
     <font-awesome-icon :icon="['fas', 'search']" class="ml-4 mr-3" />
     <div class="flex flex-1 flex-nowrap h-full text-base font-light">
       <div class="flex h-full flex-1 relative items-center pr-3">
@@ -35,12 +38,22 @@ export default {
       location: ''
     };
   },
+  // i metodi update a lezione 204 lui non li ha più
+  // mi sa che non mi sono scordato di eliminarli
+  // e che non servono dato che ho usato il v-model per gestirli??
+  //non mi sembra di chiamarli da nessuna parte
   methods: {
     updateRole(payload) {
       this.role = payload;
     },
     updateLocation(payload) {
       this.location = payload;
+    },
+    searchForJobs() {
+      this.$router.push({
+        name: 'JobResults',
+        query: { role: this.role, location: this.location }
+      });
     }
   }
 };
