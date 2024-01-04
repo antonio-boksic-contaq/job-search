@@ -52,5 +52,7 @@ fetchJobsV2();
 
 ////////////// LEZIONE 235 SLICE METHOD
 
+/*
 const sushi = ['Tuna', 'Salmon', 'Yellowtail', 'Eel', 'Shrimp', 'Octopus', 'Uni'];
 console.log(sushi.slice(2, 4));
+*/
