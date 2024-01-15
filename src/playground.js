@@ -56,3 +56,32 @@ fetchJobsV2();
 const sushi = ['Tuna', 'Salmon', 'Yellowtail', 'Eel', 'Shrimp', 'Octopus', 'Uni'];
 console.log(sushi.slice(2, 4));
 */
+
+//
+//
+//
+//
+//
+//
+////////////// LEZIONE 314 review of javascript sets
+
+/*
+const numbers = new Set();
+numbers.add(5);
+numbers.add(10);
+numbers.add(15);
+
+console.log(numbers);
+*/
+
+////////////// LEZIONE 325 filter method on an array
+
+/*
+const numbers = [1, 3, 5, 7, 2, 9, 11, 6];
+
+const newNumbers = numbers.filter((number) => {
+  return number > 6;
+});
+
+console.log(newNumbers);
+*/
