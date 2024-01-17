@@ -85,3 +85,43 @@ const newNumbers = numbers.filter((number) => {
 
 console.log(newNumbers);
 */
+
+////////////// LEZIONE 353 what is reactivity
+//const { ref } = require('vue');
+
+import { ref, reactive, computed } from 'vue';
+
+/*
+let a = 1;
+let b = 2;
+let c = a + b;
+console.log(c);
+
+a = 8;
+b = 12;
+console.log(c);
+*/
+
+/*
+let a = ref(1);
+let b = ref(2);
+
+let c = computed(() => a.value + b.value);
+console.log(c.value);
+*/
+
+/*
+let name = 'Boris';
+let title = name + ' the Great';
+console.log(title);
+*/
+
+const person = reactive({
+  name: 'Boris'
+});
+
+const title = computed(() => person.name + ' the Great');
+console.log(title.value);
+
+person.name = 'Peter';
+console.log(title.value);
