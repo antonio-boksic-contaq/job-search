@@ -4,16 +4,24 @@
   </button>
 </template>
 
-<script>
-export default {
-  name: 'ActionButton',
-  props: ['text', 'type'],
+<script setup>
+import { computed, toRefs } from 'vue';
+
+const props = defineProps(['text', 'type']);
+
+const { type } = toRefs(props);
+
+const buttonClass = computed(() => {
+  return { [type.value]: true };
+});
+
+/* OPTIONS API
   computed: {
     buttonClass() {
       return { [this.type]: true }; // { primary: true };
     }
   }
-};
+  */
 </script>
 
 <style scoped>
