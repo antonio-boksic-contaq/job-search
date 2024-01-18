@@ -22,22 +22,26 @@
   </form>
 </template>
 
-<script>
+<script setup>
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+
 import ActionButton from '@/components/Shared/ActionButton.vue';
 import TextInput from '@/components/Shared/TextInput.vue';
 
+const role = ref('');
+const location = ref('');
+
+const router = useRouter();
+
+const searchForJobs = () => {
+  router.push({
+    name: 'JobResults',
+    query: { role: role.value, location: location.value }
+  });
+};
+/*
 export default {
-  name: 'JobSearchForm',
-  components: {
-    ActionButton,
-    TextInput
-  },
-  data() {
-    return {
-      role: '',
-      location: ''
-    };
-  },
   // i metodi update a lezione 204 lui non li ha più
   // mi sa che non mi sono scordato di eliminarli
   // e che non servono dato che ho usato il v-model per gestirli??
@@ -57,4 +61,5 @@ export default {
     }
   }
 };
+*/
 </script>
