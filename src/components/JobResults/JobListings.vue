@@ -28,46 +28,44 @@
   </main>
 </template>
 
-<script>
-import { mapActions, mapState } from 'pinia';
+<script setup>
+import { computed, onMounted } from 'vue';
+import { useRoute } from 'vue-router';
+
 import JobListing from '@/components/JobResults/JobListing.vue';
-import { useJobsStore, FETCH_JOBS, FILTERED_JOBS } from '@/stores/jobs';
-export default {
-  name: 'JobListings',
-  components: {
-    JobListing
-  },
-  computed: {
-    currentPage() {
-      return Number.parseInt(this.$route.query.page || '1');
-    },
-    previousPage() {
-      const previousPage = this.currentPage - 1;
-      const firstPage = 1;
-      return previousPage >= firstPage ? previousPage : undefined;
-    },
-    ...mapState(useJobsStore, {
-      FILTERED_JOBS,
-      nextPage() {
-        const nextPage = this.currentPage + 1;
-        const maxPage = Math.ceil(this.FILTERED_JOBS.length / 10);
-        return nextPage <= maxPage ? nextPage : undefined;
-      },
-      displayedJobs() {
-        const pageNumber = this.currentPage;
-        const firstJobindex = (pageNumber - 1) * 10;
-        const lastJobindex = pageNumber * 10;
-        return this.FILTERED_JOBS.slice(firstJobindex, lastJobindex);
-      }
-    })
-  },
-  async mounted() {
-    // const response = await axios.get('http://localhost:3000/jobs');
-    // this.jobs = response.data;
-    this.FETCH_JOBS();
-  },
-  methods: {
-    ...mapActions(useJobsStore, [FETCH_JOBS])
-  }
-};
+import { useJobsStore, FETCH_JOBS } from '@/stores/jobs';
+
+import usePreviousAndNextPages from '@/composables/usePreviousAndNextPages';
+
+const jobStore = useJobsStore();
+onMounted(jobStore.FETCH_JOBS);
+
+const FILTERED_JOBS = computed(() => jobStore.FILTERED_JOBS);
+
+const route = useRoute();
+const currentPage = computed(() => Number.parseInt(route.query.page || '1'));
+const maxPage = computed(() => Math.ceil(FILTERED_JOBS.value.length / 10));
+
+const { previousPage, nextPage } = usePreviousAndNextPages(currentPage, maxPage);
+/*
+const previousPage = computed(() => {
+  const previousPage = currentPage.value - 1;
+  const firstPage = 1;
+  return previousPage >= firstPage ? previousPage : undefined;
+});
+*/
+
+/*
+const nextPage = computed(() => {
+  const nextPage = currentPage.value + 1;
+  return nextPage <= maxPage ? nextPage : undefined;
+});
+*/
+
+const displayedJobs = computed(() => {
+  const pageNumber = currentPage.value;
+  const firstJobindex = (pageNumber - 1) * 10;
+  const lastJobindex = pageNumber * 10;
+  return FILTERED_JOBS.value.slice(firstJobindex, lastJobindex);
+});
 </script>
